@@ -43,7 +43,6 @@
   .side-bar__user-name.clearfix
     .info
       .info__output
-        仮入力current-user
+        = current_user.name
         -# = current_user
-      = link_to "仮ログアウト", class: 'info__logout'
-      -# = link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'info__logout'
+      = link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'info__logout'
