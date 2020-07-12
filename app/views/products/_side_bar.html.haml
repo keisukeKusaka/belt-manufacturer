@@ -44,5 +44,4 @@
     .info
       .info__output
         = current_user.name
-        -# = current_user
       = link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'info__logout'
