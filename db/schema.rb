@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_205149) do
+ActiveRecord::Schema.define(version: 2020_07_14_211240) do
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "campany", null: false
@@ -68,6 +68,19 @@ ActiveRecord::Schema.define(version: 2020_07_14_205149) do
     t.index ["user_id"], name: "index_production_data_on_user_id"
   end
 
+  create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "design_data_id"
+    t.bigint "production_data_id"
+    t.bigint "inspection_data_id"
+    t.bigint "evaluation_data_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["design_data_id"], name: "index_products_on_design_data_id"
+    t.index ["evaluation_data_id"], name: "index_products_on_evaluation_data_id"
+    t.index ["inspection_data_id"], name: "index_products_on_inspection_data_id"
+    t.index ["production_data_id"], name: "index_products_on_production_data_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "employee_number", null: false
@@ -88,5 +101,9 @@ ActiveRecord::Schema.define(version: 2020_07_14_205149) do
   add_foreign_key "evaluation_data", "users"
   add_foreign_key "inspection_data", "users"
   add_foreign_key "production_data", "users"
+  add_foreign_key "products", "design_data", column: "design_data_id"
+  add_foreign_key "products", "evaluation_data", column: "evaluation_data_id"
+  add_foreign_key "products", "inspection_data", column: "inspection_data_id"
+  add_foreign_key "products", "production_data", column: "production_data_id"
   add_foreign_key "users", "departments"
 end
