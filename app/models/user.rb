@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :employee_number, presence: true, uniqueness: true
 
   belongs_to :department
+  has_many   :production_data
 
   def email_required?
     false
