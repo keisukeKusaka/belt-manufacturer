@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_200832) do
+ActiveRecord::Schema.define(version: 2020_07_14_203558) do
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "campany", null: false
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 2020_07_14_200832) do
     t.index ["client_id"], name: "index_design_data_on_client_id"
     t.index ["material_id"], name: "index_design_data_on_material_id"
     t.index ["product_number"], name: "index_design_data_on_product_number", unique: true
+  end
+
+  create_table "inspection_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.float "length", null: false
+    t.integer "width", null: false
+    t.float "weight", null: false
+    t.text "comment", null: false
+    t.string "image"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_inspection_data_on_user_id"
   end
 
   create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -64,6 +76,7 @@ ActiveRecord::Schema.define(version: 2020_07_14_200832) do
 
   add_foreign_key "design_data", "clients"
   add_foreign_key "design_data", "materials"
+  add_foreign_key "inspection_data", "users"
   add_foreign_key "production_data", "users"
   add_foreign_key "users", "departments"
 end
