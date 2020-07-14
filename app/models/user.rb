@@ -10,6 +10,7 @@ class User < ApplicationRecord
   belongs_to :department
   has_many   :production_data
   has_many   :inspection_data
+  has_many   :evaluation_data
 
   def email_required?
     false
