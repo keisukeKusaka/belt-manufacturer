@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_160720) do
+ActiveRecord::Schema.define(version: 2020_07_14_181813) do
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "campany", null: false
@@ -18,6 +18,19 @@ ActiveRecord::Schema.define(version: 2020_07_14_160720) do
 
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
+  end
+
+  create_table "design_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "product_number", null: false
+    t.float "length", null: false
+    t.integer "width", null: false
+    t.bigint "client_id"
+    t.bigint "material_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_design_data_on_client_id"
+    t.index ["material_id"], name: "index_design_data_on_material_id"
+    t.index ["product_number"], name: "index_design_data_on_product_number", unique: true
   end
 
   create_table "materials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -40,5 +53,7 @@ ActiveRecord::Schema.define(version: 2020_07_14_160720) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "design_data", "clients"
+  add_foreign_key "design_data", "materials"
   add_foreign_key "users", "departments"
 end
